@@ -1,12 +1,12 @@
 {
-  "name": "rphm_library",
-  "version": "0.3.1",
+  "name": "rphm",
+  "version": "0.2.9",
   "description": "RPHM is a free style library that manages the positioning of HTML elements. This library was created by Raphael BARD, Pierre-Louis BASTIN, and Nassime HARMACH with the aim of improving the web application development process.",
   "main": "script.sh",
   "scripts": {
     "postinstall": "sh script.sh"
   },
-  "keywords": [],
-  "author": "three_devs",
+  "keywords": ["Free style library", "Modular library", "Fast style creation", "Quick element positioning", "raph please help me"],
+  "author": "Kowan&Nassitch",
   "license": "ISC"
 }
