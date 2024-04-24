@@ -9,7 +9,7 @@
 1. Installation of the package on your Angular project.
 
 ```
-npm install rphm_library
+npm install rphm
 ```
 
 2. Script execution (first usage only).

@@ -66,6 +66,7 @@ const fs = require("fs");
 /* Variable de dossier et fichier. */
 let projectName;
 const angularJsonPath = "angular.json";
+const packageJson = "package.json";
 const libraryPath = "src/main.css";
 /* Variable formatage. */
 let angularJsonContent = fs.readFileSync(angularJsonPath, "utf8");
@@ -159,6 +160,6 @@ check_folder_exist
 clone_library
 move_file_on_angular
 check_angular_json
-add_commande_line_for_execute
+# add_commande_line_for_execute
 # add_dependence_on_angular_json
 self_destruction
