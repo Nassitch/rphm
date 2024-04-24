@@ -127,16 +127,16 @@ PROJECT_NAME=$(node "$SCRIPT_JS")
 }
 
 function add_commande_line_for_execute {
-  if ! grep -q "alias rphm='./node_modules/rphm_library/script.sh'" ~/.bashrc; then
-    echo "alias rphm='./node_modules/rphm_library/script.sh'" >> ~/.bashrc
+  if ! grep -q "alias rphm='./node_modules/rphm/script.sh'" ~/.bashrc; then
+    echo "alias rphm='./node_modules/rphm/script.sh'" >> ~/.bashrc
     source ~/.bashrc
     echo "Alias 'rphm' ajouté avec succès."
   else
     echo "L'alias 'rphm' existe déjà dans ~/.bashrc."
   fi
 
-  if ! grep -q "alias rphm='./node_modules/rphm_library/script.sh'" ~/.zshrc; then
-    echo "alias rphm='./node_modules/rphm_library/script.sh'" >> ~/.zshrc
+  if ! grep -q "alias rphm='./node_modules/rphm/script.sh'" ~/.zshrc; then
+    echo "alias rphm='./node_modules/rphm/script.sh'" >> ~/.zshrc
     source ~/.zshrc
     echo "Alias 'rphm' ajouté avec succès."
   else

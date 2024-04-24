@@ -15,7 +15,7 @@ npm install rphm_library
 2. Script execution (first usage only).
 
 ```
-./node_modules/rphm_library/script.sh
+./node_modules/rphm/script.sh
 ```
 
 3. Script execution (from the second usage).
