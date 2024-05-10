@@ -29,7 +29,7 @@ However, when assembling website pages, it may be necessary to adjust certain vi
 
 The library and the design system work in synergy, offering a comprehensive and modular approach for frontend development, where the atoms defined in the design system serve as a solid foundation to which the library's classes add functionality and styles specific to the usage context.
 
-Documentation and tutorial for the CSS library are available by opening the french-index.html document.
+Documentation : https://rphm-library.fr/
 
 # Operation.
 
@@ -47,6 +47,7 @@ Documentation and tutorial for the CSS library are available by opening the fren
 - _+1 file_ README.md
 - _+1 file_ script.sh
 - _+1 file_ update.js
+- _+1 file_ LICENSE
 
 > 2.  Executing the script from the command line.
 
@@ -67,3 +68,7 @@ Documentation and tutorial for the CSS library are available by opening the fren
 - Execution of the **script.js**.
 - Addition of the absolute path of the _file_ **main.css** in **main.jsx**.
 - Permanent deletion of the _file_ **script.js**.
+
+### Credits.
+*The style library was created by [ Raphaël BARD](https://www.linkedin.com/in/rapha%C3%ABl-bard-8b1ba2133/). All installation scripts for it have been carefully written by [Nassime HARMACH](https://nassime-harmach.com/).*
+*All related code is open source.*
