@@ -1,7 +1,7 @@
 ### Note.
 
-- This library is only available for Angular applications.
-- In the near future, React applications will also be supported.
+- The library is compatible with React and Angular applications.
+- In the near future, the library will be compatible with all front-end applications.
 
 # Installation & Usage
 
@@ -50,13 +50,20 @@ Documentation and tutorial for the CSS library are available by opening the fren
 
 > 2.  Executing the script from the command line.
 
+#### if Angular application :
 - Creation of a _folder_ on the desktop.
 - Cloning of the library _folder_.
 - Transfer of the _file_ **main.css** to the project _folder_.
 - Creation of a _file_ **script.js**.
 - Execution of the **script.js**.
 - Addition of the absolute path of the _file_ **main.css** in **angular.json**.
-- Addition of an environment variable to execute the _file_ script.sh with the command **rphm**.
-- Adding the **script** to the **package.json** _file_.
 - Permanent deletion of the _file_ **script.js**.
-- Permanent deletion of the _file_ **script.sh**.
+
+#### if React application :
+- Creation of a _folder_ on the desktop.
+- Cloning of the library _folder_.
+- Transfer of the _file_ **main.css** to the project _folder_.
+- Creation of a _file_ **script.js**.
+- Execution of the **script.js**.
+- Addition of the absolute path of the _file_ **main.css** in **main.jsx**.
+- Permanent deletion of the _file_ **script.js**.

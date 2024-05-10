@@ -7,11 +7,11 @@ FOLDER_PATH="$HOME/Desktop/rphm_library/"
 GIT_CLONE_LIBRARY="git@github.com:raph-bard/css-library.git"
 FOLDER_LIBRARY_PATH="$HOME/Desktop/rphm_library/css-library"
 FILE_STYLE="$FOLDER_LIBRARY_PATH/main.css"
-CURRENT_ANGULAR_PROJECT=$(pwd)
-LIBRARY_IN_ANGULAR_PROJECT="$CURRENT_ANGULAR_PROJECT/src/main.css"
-FILE_ANGULAR_JSON="$CURRENT_ANGULAR_PROJECT/angular.json"
+CURRENT_PROJECT=$(pwd)
+LIBRARY_IN_PROJECT="$CURRENT_PROJECT/src/main.css"
+FILE_ANGULAR_JSON="$CURRENT_PROJECT/angular.json"
+FILE_REACT_JSX="$CURRENT_PROJECT/src/main.jsx"
 SCRIPT_JS="script.js"
-SCRIPT_SH="script.sh"
 
 
 function check_folder_exist {
@@ -33,31 +33,33 @@ function clone_library {
     fi
 }
 
-function move_file_on_angular {
-    if [ -f "$LIBRARY_IN_ANGULAR_PROJECT" ]; then
-        echo "🆗 La librairie existe déjà dans le projet Angular"
+function move_file_on_project {
+    if [ -f "$LIBRARY_IN_PROJECT" ]; then
+        echo "🆗 La librairie existe déjà dans votre projet."
     else
-        cp "$FILE_STYLE" "$LIBRARY_IN_ANGULAR_PROJECT"
-        echo "🆗 La librairie a bien été ajoutée au projet Angular"
+        cp "$FILE_STYLE" "$LIBRARY_IN_PROJECT"
+        echo "🆗 La librairie a bien été ajoutée a votre projet."
     fi
 }
 
-function check_angular_json {
-    if [ ! -f "$FILE_ANGULAR_JSON" ]; then
-        echo "❌ Le fichier angular.json n'existe pas."
-        return 1
+function check_angular_project {
+    if [ -f "$FILE_ANGULAR_JSON" ]; then
+        echo "🆗 L'application Angular est compatible."
+        inject_dependencies_on_angular
     fi
 
 }
 
-# function add_dependence_on_angular_json {
-
-# cd $CURRENT_ANGULAR_PROJECT
-# }
+function check_react_project {
+    if [ -f "$FILE_REACT_JSX" ]; then
+      echo "🆗 L'application React est compatible."
+      inject_dependencies_on_react
+    fi
+}
 
 # Creation de script.js
-function creating_of_js_script {
-cd $CURRENT_ANGULAR_PROJECT
+function inject_dependencies_on_angular {
+cd $CURRENT_PROJECT
 touch script.js
 
 cat <<EOF > script.js
@@ -98,8 +100,9 @@ function insertLibraryPath() {
       );
       return;
     } else {
-      console.log(\`🆗 Le projet \${projectName} est existant.\`);
+      console.log(`🆗 Le projet ${projectName} est existant.`);
     }
+    
 
     const pathToInjectDependences =
       angularJson.projects[projectName].architect.build.options.styles;
@@ -107,9 +110,9 @@ function insertLibraryPath() {
     if (pathToInjectDependences[0] !== libraryPath) {
       pathToInjectDependences.unshift(libraryPath);
       fs.writeFileSync(angularJsonPath, JSON.stringify(angularJson, null, 2));
-      console.log(\`🆗 La librairie à bien été ajouté aux dépendences.\`);
+      console.log(`🆗 La librairie à bien été ajouté aux dépendences.`);
     } else {
-      console.log(\`🆗 La librairie se trouve déjà dans les dépendences.\`);
+      console.log(`🆗 La librairie se trouve déjà dans les dépendences.`);
     }
   } catch (error) {
     console.log(
@@ -123,43 +126,56 @@ getProjectName();
 insertLibraryPath();
 EOF
 
-PROJECT_NAME=$(node "$SCRIPT_JS")
-    echo "$PROJECT_NAME"
+  node "$SCRIPT_JS"
 }
 
-function add_commande_line_for_execute {
-  if ! grep -q "alias rphm='./node_modules/rphm/script.sh'" ~/.bashrc; then
-    echo "alias rphm='./node_modules/rphm/script.sh'" >> ~/.bashrc
-    source ~/.bashrc
-    echo "Alias 'rphm' ajouté avec succès."
-  else
-    echo "L'alias 'rphm' existe déjà dans ~/.bashrc."
-  fi
+function inject_dependencies_on_react {
+cd $CURRENT_PROJECT
+touch script.js
 
-  if ! grep -q "alias rphm='./node_modules/rphm/script.sh'" ~/.zshrc; then
-    echo "alias rphm='./node_modules/rphm/script.sh'" >> ~/.zshrc
-    source ~/.zshrc
-    echo "Alias 'rphm' ajouté avec succès."
-  else
-    echo "L'alias 'rphm' existe déjà dans ~/.zshrc."
-  fi
+cat <<EOF > script.js
+import { readFileSync, writeFileSync } from "fs";
+
+const reactJsxPath = "./src/main.jsx";
+const libraryPath = 'import "./main.css";';
+
+function insertLibraryPath() {
+  try {
+    let reactJsxContent = readFileSync(reactJsxPath, "utf8");
+    if (!reactJsxContent.includes(libraryPath)) {
+      reactJsxContent = libraryPath + "\n" + reactJsxContent;
+      writeFileSync(reactJsxPath, reactJsxContent);
+
+      console.log("🆗 La librairie a été ajoutée aux dépendances.");
+    } else {
+      console.log("🆗 La librairie se trouve déjà dans les dépendances.");
+    }
+  } catch (error) {
+    console.log(
+      "❌ Une erreur s'est produite lors de la lecture/écriture de main.jsx:",
+      error
+    );
+  }
+}
+
+insertLibraryPath();
+EOF
+
+  node "$SCRIPT_JS"
 }
 
 # Destruction de dossiers et fichiers.
 function self_destruction {
     echo "✔️ La librairie est correctement installée."
-    rm -rf "$CURRENT_ANGULAR_PROJECT/script.js"
+    # rm -rf "$CURRENT_PROJECT/script.js"
     rm -rf $FOLDER_PATH
     echo "🔥 Auto-destruction iminente."
-    # rm -rf "$CURRENT_ANGULAR_PROJECT/script.sh"
 }
 
 # Appel des fonctions
-creating_of_js_script
 check_folder_exist
 clone_library
-move_file_on_angular
-check_angular_json
-# add_commande_line_for_execute
-# add_dependence_on_angular_json
+move_file_on_project
+check_angular_project
+check_react_project
 self_destruction
