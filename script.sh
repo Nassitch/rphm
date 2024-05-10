@@ -167,7 +167,7 @@ EOF
 # Destruction de dossiers et fichiers.
 function self_destruction {
     echo "✔️ La librairie est correctement installée."
-    # rm -rf "$CURRENT_PROJECT/script.js"
+    rm -rf "$CURRENT_PROJECT/script.js"
     rm -rf $FOLDER_PATH
     echo "🔥 Auto-destruction iminente."
 }
