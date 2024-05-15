@@ -1,5 +1,5 @@
 #!/bin/bash
-chmod +x "script.sh"
+chmod +x "$CURRENT_PROJECT/node_modules/rphm/script.sh"
 
 # Définition des variables
 DESKTOP_PATH="$HOME/Desktop"
@@ -59,7 +59,7 @@ function check_react_project {
 
 # Creation de script.js
 function inject_dependencies_on_angular {
-cd $CURRENT_PROJECT
+cd "$CURRENT_PROJECT/"
 touch script.js
 
 cat <<EOF > script.js
@@ -130,21 +130,21 @@ EOF
 }
 
 function inject_dependencies_on_react {
-cd $CURRENT_PROJECT
+cd "$CURRENT_PROJECT/"
 touch script.js
 
 cat <<EOF > script.js
-import { readFileSync, writeFileSync } from "fs";
+import fs from "fs";
 
 const reactJsxPath = "./src/main.jsx";
 const libraryPath = 'import "./main.css";';
 
 function insertLibraryPath() {
   try {
-    let reactJsxContent = readFileSync(reactJsxPath, "utf8");
+    let reactJsxContent = fs.readFileSync(reactJsxPath, "utf8");
     if (!reactJsxContent.includes(libraryPath)) {
       reactJsxContent = libraryPath + "\n" + reactJsxContent;
-      writeFileSync(reactJsxPath, reactJsxContent);
+      fs.writeFileSync(reactJsxPath, reactJsxContent);
 
       console.log("🆗 La librairie a été ajoutée aux dépendances.");
     } else {
@@ -168,7 +168,7 @@ EOF
 function self_destruction {
     echo "✔️ La librairie est correctement installée."
     rm -rf "$CURRENT_PROJECT/script.js"
-    rm -rf $FOLDER_PATH
+    rm -rf "$FOLDER_PATH"
     echo "🔥 Auto-destruction iminente."
 }
 
